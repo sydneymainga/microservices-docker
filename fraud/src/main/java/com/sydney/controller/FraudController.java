@@ -3,7 +3,6 @@ package com.sydney.controller;
 import com.sydney.response.FraudCheckResponse;
 import com.sydney.service.FraudService;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +25,6 @@ public class FraudController {
 
         log.info("fraud check request for customer {}", customerId);
 
-        return new FraudCheckResponse(//);
+        return new FraudCheckResponse(isFraudulentCustomer);
     }
 }
