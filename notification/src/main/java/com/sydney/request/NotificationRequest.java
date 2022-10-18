@@ -13,5 +13,6 @@ public class NotificationRequest {
 
     private Integer toCustomerId;
     private String toCustomerName;
+    private String toCustomerEmail;
     private String message;
 }
