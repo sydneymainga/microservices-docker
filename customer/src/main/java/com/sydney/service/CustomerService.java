@@ -3,13 +3,16 @@ package com.sydney.service;
 import com.sydney.model.Customer;
 import com.sydney.repository.CustomerRepository;
 import com.sydney.requests.CustomerRegistrationRequest;
+import com.sydney.requests.NotificationRequest;
 import com.sydney.response.FraudCheckResponse;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
@@ -38,5 +41,25 @@ public class CustomerService {
             throw new IllegalStateException("Heeeeeeey check out customer is suspected fraudster");
         }
         //todo: send notification
+        NotificationRequest notificationRequest = new NotificationRequest();
+
+        NotificationRequest request1 = NotificationRequest.builder()
+                .toCustomerId(customer.getId())
+                .toCustomerEmail(customer.getEmail())
+                .message("Dear "+customer.getFirstname() +""+ customer.getLastname()+"\n"
+                +"Welcome on board we are happy to sign you up,thank you for choosing us")
+                .toCustomerName(customer.getFirstname() +""+ customer.getLastname())
+                .build();
+        log.info("we are trying to send this email to notification service ==> "+request1.getMessage());
+
+        try {
+             notificationRequest = restTemplate.postForObject(
+                    "http://NOTIFICATION/api/v1/notification/",
+                     request1,
+                    NotificationRequest.class
+            );
+        }catch(Exception e){
+            log.info("notification not sent "+ e.getMessage());
+        }
     }
 }

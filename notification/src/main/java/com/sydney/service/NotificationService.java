@@ -14,7 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Service
@@ -39,9 +38,10 @@ public class NotificationService {
 
         log.info("sending notification to customer {} with sendgrid",notificationRequest.getToCustomerId());
         Email from = new Email("sydneymainga6@gmail.com");//MY_EMAIL_GMAIL
-        String subject = "TEST SYDNEY MICROSERVICE";//notificationRequest.title;
+        String subject = "SUCCESSFULLY REGISTERED";//notificationRequest.title;
         Email to = new Email(notificationRequest.getToCustomerEmail());
         Content content = new Content("text/plain",notificationRequest.getMessage());
+        log.info("We are trying to send this email ==> "+notificationRequest.getMessage());
         Mail mail = new Mail(from,subject,to,content);
 
         SendGrid sendGrid = new SendGrid("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");
