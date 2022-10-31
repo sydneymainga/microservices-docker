@@ -44,7 +44,7 @@ public class NotificationService {
         log.info("We are trying to send this email ==> "+notificationRequest.getMessage());
         Mail mail = new Mail(from,subject,to,content);
 
-        SendGrid sendGrid = new SendGrid("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");
+        SendGrid sendGrid = new SendGrid("SG.n4UYvp0FRFiRyYn1m2-dUQ");
 
         Request request = new Request();
 
